@@ -1,0 +1,12 @@
+html,
+body,
+div,
+h1,
+h2,
+ul,
+li,
+a,
+footer {
+  margin: 0;
+  padding: 0;
+}
