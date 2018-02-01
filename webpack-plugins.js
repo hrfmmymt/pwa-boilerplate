@@ -1,8 +1,9 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const workboxPlugin = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const PATHS = require('./webpack-paths');
 
 exports.loaderOptions = new webpack.LoaderOptionsPlugin({
   options: {
@@ -37,18 +38,15 @@ exports.manifest = new ManifestPlugin({
   fileName: 'asset-manifest.json',
 });
 
-exports.sw = new SWPrecacheWebpackPlugin({
-  dontCacheBustUrlsMatching: /\.\w{8}\./,
-  filename: 'service-worker.js',
-  logger(message) {
-    if (message.indexOf('Total precache size is') === 0) {
-      return;
-    }
-    console.log(message);
-  },
-  minify: true,
+exports.sw = new workboxPlugin({
+  cacheId: 'pwa-boilerplate',
+  globDirectory: PATHS.public,
+  globPatterns: ['**/*.{html,css,js,json,jpg,png,svg,ico}'],
+  globIgnores: ['**/*.map*', 'asset-manifest.json'],
+  swDest: PATHS.public + '/service-worker.js',
   navigateFallback: '/index.html',
-  staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+  skipWaiting: true,
+  clientsClaim: false
 });
 
 exports.copy = new CopyWebpackPlugin([
