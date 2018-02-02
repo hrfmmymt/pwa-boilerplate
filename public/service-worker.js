@@ -24,11 +24,11 @@ const fileManifest = [
   },
   {
     "url": "bundle.js",
-    "revision": "5808af22bf96df8cdb6e2f33faa4caa2"
+    "revision": "12391908c54ecdbc7e80b1ec22013097"
   },
   {
     "url": "index.html",
-    "revision": "f0fdcb0acd81c61afc9468ef03fffe73"
+    "revision": "6fa1c8006666ef68fcd8214204a7d38f"
   },
   {
     "url": "manifest.json",
